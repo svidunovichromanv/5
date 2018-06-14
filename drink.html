@@ -1,0 +1,66 @@
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>test</title>
+    <script>
+     'use strict';
+    class HashStorage { 
+  addValue(key, value) {
+    key += "";
+    this[key] = value;
+  };
+  getValue(key) {
+    return (key in this) ? this[key] : undefined;
+  };
+  deleteValue(key) {
+    if(key in this){
+      delete this[key];
+      return true;
+    }
+    return false;
+  };
+  getKeys() {
+    const arr = [];
+    for(let key in this){
+      arr.push(key);
+    }
+    return arr;
+  };
+};
+const drinkStorage = new HashStorage();
+
+function enterNameOfDrink() {
+  let nameDrink = prompt("Введите название напитка", '');
+  let alcohol = confirm("Он алкагольный?");
+  let recipe = prompt("Введите рецепт", '');
+  let value = "рецепт: " + recipe + '';
+  if (alcohol){
+    value = "напиток: " + nameDrink + "\n алкогольный: да" + "\n " + value;
+  }else{
+    value = "напиток: " + nameDrink + "\n алкогольный: нет" + "\n " + value;
+  };
+  drinkStorage.addValue(nameDrink, value)
+};
+
+function getNameOfDrink() {
+  let drink = prompt('Введите название напитка', '');
+  alert (drinkStorage.getValue(drink));
+};
+
+function delNameOfDrink() {
+  let drink = prompt('Введите название удаляемого напитка', '');
+  alert(drinkStorage.deleteValue(drink));
+};
+
+function getNamesOfDrinks() {
+  alert(drinkStorage.getKeys());
+};
+    </script>
+  </head>
+  <body>
+  <input type="button" onclick="enterNameOfDrink()" value="ввод информации о напитке"/>
+  <input type="button" onclick="getNameOfDrink()" value="получение информации о напитке"/>
+  <input type="button" onclick="delNameOfDrink()" value="удаление информации о напитке"/>
+  <input type="button" onclick="getNamesOfDrinks()" value="перечень всех напитков"/>
+  </body>
+</html>
